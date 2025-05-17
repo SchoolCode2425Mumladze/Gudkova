@@ -135,5 +135,16 @@ def Buy(balance, wn, cmd):
     elif cmd==2:
         widget()
         writef('*Недостаточно средств.*',-500,-300,20)
-def clearBuy():
-    titi.clearscreen()
+    elif cmd==3:
+        tri.reset()
+        tri.hideturtle()
+        flower.reset()
+        flower.hideturtle()
+        fb.reset()
+        fb.hideturtle()
+        m.reset()
+        m.hideturtle()
+        mediator.reset()
+        mediator.hideturtle()
+# def clearBuy():
+#     titi.clearscreen()

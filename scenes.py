@@ -1297,7 +1297,7 @@ def scene6(click,wd,x,y,gg:MainCharacter,cmd=cmd):
                         gg.inventory+='Цветок'
                         gg.balance-=30
                     else:
-                        novel.game.Buy(gg.balance, wd, 2)
+                        novel.game.Buy(gg.balance, wd,2)
                 elif WhichItem(x,y)==2:
                     if gg.balance-30>=0:
                         gg.inventory+='Медиатор'
@@ -1315,15 +1315,370 @@ def scene6(click,wd,x,y,gg:MainCharacter,cmd=cmd):
                         gg.inventory+='Сладости'
                         gg.balance-=50
                     else:
-                        novel.game.Buy(gg.balance, wd, 2)
-                elif WhichItem(x,y)==5 and clicked>4:
-                    novel.game.clearBuy()
-                    wd.bgpic('bg\\shop.gif')
-                    widget()
-                    write('Думаю хватит. Время идти домой.')
-                    cmd.command=0
-                    click.scenes+=1
+                        novel.game.Buy(gg.balance, wd,2)
+                elif WhichItem(x,y)==5:
+                    click.noClick()
+                    click.click2 = 0
+                    cmd.command = 1
+    def block2():
+        clicked=click.click-1
+        if clicked==0:
+            novel.game.Buy(gg.balance, wd, 3)
+            wd.bgpic('bg\\shop.gif')
+            widget()
+            write('Думаю хватит. Время идти домой.')
+        else:
+            click.noClick()
+            click.click2 = 0
+            click.scenes+=1
+            cmd.command=0
     if cmd.command==0:
         block1()
+    elif cmd.command==1:
+        block2()
 def scene7(click,wd,x,y,gg:MainCharacter,cmd=cmd):
-    pass
+
+    def block1():
+        clicked=click.click-2
+        text=['Как оказалось, в мире апокалипсиса всё не так трагично и энергично.','А главное, тут очень скучно. ','Чтобы скрасить себе дни, я хожу в библиотеку сразу после вылазок.','И снова я тут, Вивьен тоже.','Она вообще выходит на свежий воздух?','Ладно, не важно. Меня ждёт новый том для прочтения!','Художественная литература, как оказалось, не такая уж и скучная.','Я уже прочла кучу книг.','*Несколько часов спустя…*','Я и не заметила, как пролетело время!','Походу, даже Вивьен ушла. Может уже уйти спать?','Мм-м… Может ещё одну главу?','Стоило мне открыть книгу, как я услышала шорох.','Опять этот чёртов шорох!','Оказалось, что слева от меня сидел Вернон.','Я и не заметила его. Походу он сам тоже не заметил меня.','Случайно наши взгляды встретились.']
+        if clicked == -1:
+            wd.bgpic('nopic')
+            wd.bgcolor('white')
+            cleanText()
+            removeWidjet()
+            writeNewChapter('Несколько дней спустя')
+        elif clicked<(len(text)-3):
+            cleanText()
+            wd.bgpic('bg\\library.gif')
+            widget()
+            write(text[clicked])
+        elif 14<=clicked<=15:
+            vernon.showVernon()
+            widget()
+            write(text[clicked])
+        elif clicked==16:
+            cleanText()
+            write(text[-1])
+        elif clicked>16:
+            if valerinC.rep>=30:
+                click.click2 = 0
+                click.noClick()
+                cmd.command=1
+            elif valerinC.rep>=0:
+                click.click2 = 0
+                click.noClick()
+                cmd.command=2
+            else:
+                if clicked==17:
+                    cleanText()
+                    write('Вернон смотрел на меня чуть ли не с ненавистью. Наверное, это из-за натянутых отношений между мной и его сестрой…')
+                else:
+                    vernon.hideVernon()
+                    click.click2 = 0
+                    click.noClick()
+                    cmd.command = 110
+    def block2():
+        clicked=click.click2-1
+        vert=[2,4,6,7,9,11,12,13,15]
+        ggt=[3,8,10,14]
+        text=['Вернон смотрел на меня с искренней улыбкой. Может это из-за моих более-менее хороших отношений с его сестрой?','Он резко прервал тишину.',f'Привет, {gg.name}.','Добрый вечер, Вернон. Завлёкся новой книгой?','Угу…','Неловко.','Ты сблизилась с моей сестрой. Знаешь, давно не было людей, которые могли бы вызвать её доверие.','Может дело в том, что Валерин изменилась, но я вижу, что ты сама по себе такая… тихая, приятная?','Спасибо?','Не пойми превратно. Валерин ни с кем не сближалась после трагедии.','Трагедии? Ты про апокалипсис?','Нет, я говорю про то, что произошло три года назад.','Тогда наши родители попали в автокатастрофу и… с тех пор мы одни.','Никто не помогал, Валерин всем занималась сама. Я ценил её и ценю, поэтому, когда я вижу хороших людей, я хочу, чтоб они сближались с сестрой.','Прости, но я не думаю, что Валерин нравится моё общество.','Ещё как нравится! Просто она вредная и недоверчивая. Сестра этого не показывает, но она хочет проводить больше времени с тобой. Поэтому я тебе это говорю. Всё, как всегда, имеет свои истоки. Всё сложнее чем кажется.']
+        if clicked==0 or clicked==1 or clicked==5:
+            widget()
+            write(text[clicked])
+        elif clicked in vert:
+            widget(vernon.wcolour)
+            write(text[clicked])
+        elif clicked in ggt:
+            widget(gg.colour)
+            write(text[clicked])
+        elif len(gg.inventory)>0 and clicked>15:
+            text2=['Если это и правда так, может мне сделать ей подарок?',' Это будет хорошей возможностью стать ближе!']
+            if 16<=clicked<=17:
+                widget()
+                write(text2[clicked-16])
+            else:
+                cleanText()
+                choice = ['1.Подарить.', "2.Ничего не дарить."]
+                ShowChoice(choice[0], choice[1])
+                if whichChoice(x, y) == 1:
+                    click.button = None
+                    cmd.command = 100
+                    click.click = 0
+                elif whichChoice(x, y) == 2:
+                    vernon.hideVernon()
+                    click.noClick()
+                    cmd.command = 110
+        else:
+            vernon.hideVernon()
+            click.noClick()
+            cmd.command = 110
+    def block3():
+        vernon.hideVernon()
+        clicked = click.click - 1
+        but = click.button
+        removeWidjet()
+        cleanText()
+        readChar()
+        char = readChar(True)
+        readInventory()
+        invent = readInventory(True)
+        if clicked == 0:
+            novel.game.Char(char, invent, True)
+        if but != None:
+            novel.game.RemoveChar()
+            if int(but) <= len(gg.inventory):
+                item = gg.inventory[int(but) - 1]
+                if item in valerinC.favorites:
+                    if clicked == 1:
+                        widget()
+                        write('Вернон посмотрел с любопытством на безделушку.')
+                    elif clicked == 2:
+                        vernon.showVernon()
+                        widget(vernon.wcolour)
+                        write('Валерин точно это понравится!')
+                    else:
+                        vernon.hideVernon()
+                        valerinC.rep += 20
+                        gg.inventory.pop(int(but) - 1)
+                        readChar()
+                        click.noClick()
+                        cmd.command = 110
+                else:
+                    if clicked == 1:
+                        widget()
+                        write('Вернон посмотрел без особого восторга на подарок.')
+                    elif clicked == 2:
+                        vernon.showVernon()
+                        widget(vernon.wcolour)
+                        write('Я передам… подарок.')
+                    else:
+                        vernon.hideVernon()
+                        valerinC.rep -= 20
+                        readChar()
+                        gg.inventory.pop(int(but) - 1)
+                        click.noClick()
+                        cmd.command = 110
+            else:
+                if clicked == 1:
+                    widget()
+                    write('Я решила ничего не дарить.')
+                elif clicked == 2:
+                    cleanText()
+                    click.noClick()
+                    cmd.command = 110
+    def block110():
+        clicked=click.click-1
+        if clicked==0:
+            widget()
+            write('Думаю, самое время идти спатки. Завтра тоже работать.')
+        else:
+            click.noClick()
+            click.click2=0
+            cmd.command=5
+    def block4():
+        clicked=click.click2-1
+        text = ['Без интереса на меня посмотрел Вернон и отвернулся.',
+                'Походу из-за нейтральных отношений с Валерин я ему безразлична.']
+        if 0<=clicked<=1:
+            cleanText()
+            write(text[clicked])
+        elif len(gg.inventory) > 0 and clicked > 1:
+            text2 = ['Может через Вернона передать Валерин подарок?', ' Это будет хорошей возможностью стать ближе!']
+            if 2 <= clicked <= 3:
+                widget()
+                write(text2[clicked - 2])
+            else:
+                cleanText()
+                choice = ['1.Подарить.', "2.Ничего не дарить."]
+                ShowChoice(choice[0], choice[1])
+                if whichChoice(x, y) == 1:
+                    click.button = None
+                    cmd.command = 100
+                    click.click = 0
+                elif whichChoice(x, y) == 2:
+                    vernon.hideVernon()
+                    click.noClick()
+                    cmd.command = 110
+        else:
+            vernon.hideVernon()
+            click.noClick()
+            cmd.command = 110
+    def block5():
+        clicked=click.click-1
+        if clicked==0:
+            cleanText()
+            wd.bgpic('nopic')
+            removeWidjet()
+            writeNewChapter('Несколько недель спустя')
+        elif 0<clicked<4:
+            cleanText()
+            wd.bgpic('bg\\cafitaria.gif')
+            text=['Хлоя часто находится в теплице. Она занимается выращиванием овощей и фруктов для пропитания.','Поэтому мы с ней встречаемся только в столовой.','Она постоянно липнет ко мне, говорит о происходящем на базе. ']
+            widget()
+            write(text[clicked-1])
+        else:
+            if Cloec.rep>25:
+                click.noClick()
+                click.click2=0
+                cmd.command=6
+            elif Cloec.rep>=0:
+                click.noClick()
+                click.click2 = 0
+                cmd.command=7
+            elif clicked==4 and Cloec.rep<0:
+                cleanText()
+                write('Хлоя меня разражает.')
+                click.noClick()
+                click.click2=0
+                cmd.command=220
+    def block6():
+        clicked=click.click2-1
+        clt=[2,4,7,9]
+        ggt=[3,8]
+        ggthouhgt=[0,5,6,10,11,12]
+        text=['Её внимание мне нравится. Поэтому, когда она пригласила меня к себе, я с удовольствие зашла.','Зелень и розовый цвет. Весьма предсказуемо, но мне нравится.',f'{gg.name}, помнишь я рассказывала про фестиваль? Так вот, туда я принесла кексики. Представь, никто не съел ни одного!',
+              'Почему?! Ты же так вкусно готовишь!','Наверно я многих отпугивала своим поведением. Они называли меня Барби, сравнивая с куклой. Ведь я такая розовая, добрая и… скучная.','Если так подумать, я сама не лучше.','Я относилась к Хлое предвзято из-за её необычности. Но она точно не скучная, просто другая, разносторонняя.',
+              'Знаешь, солнце, мне всё равно что говорят другие. Я всегда буду ценить себя и всё, что имею. Смысл подстраиваться под других, если это скучно?','Ты права. И вообще, ты такая молодец! Быть собой, несмотря ни на что, это дорого стоит.',
+              'Ха-ха-ха. Спасибо.','Тишина. Мне она нравится, когда тишина-её молчание.','И вновь болтовня. Мне она тоже нравится, потому что она её.','Захотелось её порадовать.']
+        if clicked in ggthouhgt:
+            widget()
+            write(text[clicked])
+        elif clicked in clt:
+            widget(Cloec.wcolour)
+            write(text[clicked])
+        elif clicked in ggt:
+            widget(gg.colour)
+            write(text[clicked])
+        elif clicked==1:
+            wd.bgpic("bg\\cloe's.gif")
+            Cloec.showCloe()
+            cleanText()
+            widget()
+            write(text[1])
+        elif len(gg.inventory)>0 and clicked>12:
+            text2='Может сделать подарок?'
+            if clicked==12:
+                widget()
+                write(text2)
+            else:
+                cleanText()
+                choice = ['1.Подарить.', "2.Ничего не дарить."]
+                ShowChoice(choice[0], choice[1])
+                if whichChoice(x, y) == 1:
+                    click.button = None
+                    Cloec.hideCloe()
+                    cmd.command = 200
+                    click.click = 0
+                elif whichChoice(x, y) == 2:
+                    Cloec.hideCloe()
+                    click.noClick()
+                    cmd.command = 220
+        else:
+            Cloec.hideCloe()
+            cleanText()
+            write('Надо будет купить для неё подарок.')
+            click.noClick()
+            cmd.command = 220
+    def block200():
+        clicked = click.click - 1
+        but = click.button
+        removeWidjet()
+        cleanText()
+        readChar()
+        char = readChar(True)
+        readInventory()
+        invent = readInventory(True)
+        if clicked == 0:
+            novel.game.Char(char, invent, True)
+        if but != None:
+            novel.game.RemoveChar()
+            if int(but) <= len(gg.inventory):
+                item = gg.inventory[int(but) - 1]
+                if item in Cloec.favorites:
+                    if clicked == 1:
+                        Cloec.showCloe()
+                        widget(Cloec.wcolour)
+                        write('Это мне?! Спасибо огромное!')
+                    else:
+                        Cloec.hideCloe()
+                        Cloec.rep += 20
+                        gg.inventory.pop(int(but) - 1)
+                        readChar()
+                        click.noClick()
+                        cmd.command = 220
+                else:
+                    if clicked == 1:
+                        Cloec.showCloe()
+                        widget(Cloec.wcolour)
+                        write('Эм-м-м… Спасибо.')
+                    else:
+                        Cloec.hideCloe()
+                        Cloec.rep -= 20
+                        readChar()
+                        gg.inventory.pop(int(but) - 1)
+                        click.noClick()
+                        cmd.command = 220
+            else:
+                if clicked == 1:
+                    widget()
+                    write('Я решила ничего не дарить.')
+                    click.noClick()
+                    cmd.command = 220
+    def block220():
+        cleanText()
+        widget()
+        Cloec.hideCloe()
+        text='Опять Хлоя заболтала меня. Было уже поздно, и я решила убежать домой.'
+        clicked=click.click-1
+        if clicked==0:
+            widget()
+            write(text)
+            cmd.command=0
+            click.noClick()
+            click.click2=0
+            click.scenes+=1
+    def block7():
+        text='Может сделать ей подарок?'
+        clicked=click.click-1
+        if clicked==0:
+            widget()
+            write(text)
+        elif len(gg.inventory) > 0 and clicked>0:
+                cleanText()
+                choice = ['1.Подарить.', "2.Ничего не дарить."]
+                ShowChoice(choice[0], choice[1])
+                if whichChoice(x, y) == 1:
+                    click.button = None
+                    Cloec.hideCloe()
+                    cmd.command = 200
+                    click.click = 0
+                elif whichChoice(x, y) == 2:
+                    Cloec.hideCloe()
+                    click.noClick()
+                    cmd.command = 220
+        else:
+            Cloec.hideCloe()
+            cleanText()
+            write('Надо будет купить для неё подарок.')
+            click.noClick()
+            cmd.command = 220
+    if cmd.command==0:
+        block1()
+    elif cmd.command==1:
+        block2()
+    elif cmd.command==100:
+        block3()
+    elif cmd.command==2:
+        block4()
+    elif cmd.command==110:
+        block110()
+    elif cmd.command==5:
+        block5()
+    elif cmd.command==6:
+        block6()
+    elif cmd.command==200:
+        block200()
+    elif cmd.command==220:
+        block220()
+    elif cmd.command==7:
+        block7()

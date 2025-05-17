@@ -19,9 +19,9 @@ character.naming(name)
 def clickOnScreen(x,y):
     print(x,'\n',y)
     if cl.scenes==0:
-        scene1(cl, wn,x,y,character)
+        scene6(cl, wn,x,y,character)
     elif cl.scenes==1:
-        scene2(cl, wn,x,y,character)
+        scene7(cl, wn,x,y,character)
     elif cl.scenes==2:
         scene3(cl, wn, x, y, character)
     elif cl.scenes==3:
@@ -30,20 +30,24 @@ def clickOnScreen(x,y):
         scene5(cl, wn, x, y, character)
     elif cl.scenes==5:
         scene6(cl, wn, x, y, character)
+    elif cl.scenes==6:
+        scene7(cl, wn, x, y, character)
+    elif cl.scenes==7:
+        scene4(cl, wn, x, y, character)
     cl.clicking1()
     cl.clicking2()
     readChar()
     readInventory()
-    #scene6(cl, wn, x, y, character)
-    print(readChar(True))
-    print(character.new_balance)
-    print(WhichItem(x,y))
-    # print(cl.click)
-    # print(cl.click2)
-    print('v',valerinC.rep)
-    print('a',Arashic.rep)
-    print('c',Cloec.rep)
-    print(readInventory(True))
+    # scene7(cl, wn, x, y, character)
+    # print(readChar(True))
+    # print(character.new_balance)
+    # print(WhichItem(x,y))
+    print(cl.scenes)
+    print(cl.click)
+    print(cl.click2)
+    # print('v',valerinC.rep)
+    # print('a',Arashic.rep)
+    # print(readInventory(True))
 def RecordKey(key):
     global last_key
     last_key=key
