@@ -1,0 +1,65 @@
+import turtle as titi
+
+from novel.scenes import *
+
+
+titi.hideturtle()
+size=103
+maint=titi.Turtle()
+cl=Click()
+maint.hideturtle()
+wn = titi.Screen()
+wn.setup(1440, 1080)
+wn.bgpic('bg\\morning1.gif')
+name=titi.textinput('Имя', 'Введите имя для главной героини')
+
+last_key=None
+character.naming(name)
+
+def clickOnScreen(x,y):
+    print(x,'\n',y)
+    if cl.scenes==0:
+        scene1(cl, wn,x,y,character)
+    elif cl.scenes==1:
+        scene2(cl, wn,x,y,character)
+    elif cl.scenes==2:
+        scene3(cl, wn, x, y, character)
+    elif cl.scenes==3:
+        scene4(cl, wn, x, y, character)
+    elif cl.scenes==4:
+        scene5(cl, wn, x, y, character)
+    elif cl.scenes==5:
+        scene6(cl, wn, x, y, character)
+    cl.clicking1()
+    cl.clicking2()
+    readChar()
+    readInventory()
+    #scene6(cl, wn, x, y, character)
+    print(readChar(True))
+    print(character.new_balance)
+    print(WhichItem(x,y))
+    # print(cl.click)
+    # print(cl.click2)
+    print('v',valerinC.rep)
+    print('a',Arashic.rep)
+    print('c',Cloec.rep)
+    print(readInventory(True))
+def RecordKey(key):
+    global last_key
+    last_key=key
+    cl.newButton(key)
+widget()
+titi.onscreenclick(clickOnScreen)
+titi.listen()
+titi.onkey(lambda: RecordKey('1'), '1')
+titi.onkey(lambda: RecordKey('2'), '2')
+titi.onkey(lambda: RecordKey('3'), '3')
+titi.onkey(lambda: RecordKey('4'), '4')
+titi.onkey(lambda: RecordKey('5'), '5')
+titi.onkey(lambda: RecordKey('6'), '6')
+titi.onkey(lambda: RecordKey('7'), '7')
+titi.onkey(lambda: RecordKey('8'), '8')
+titi.onkey(lambda: RecordKey('9'), '9')
+
+
+wn.mainloop()
