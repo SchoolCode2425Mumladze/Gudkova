@@ -39,7 +39,7 @@ class Arashi:
     name='Араши'
     age=19
     sprite = 'sprites\араши.gif'
-    rep=0
+    rep=1000
     mcName=None
     wcolour='#c4b1d2'
     arashi_shape = tu.Turtle()

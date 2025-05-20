@@ -1,4 +1,6 @@
 import turtle as titi
+
+
 titi.tracer(10)
 wi = titi.Turtle()
 wi.speed(0)
@@ -7,6 +9,7 @@ taxi = titi.Turtle()
 taxi.speed(0)
 taxi.hideturtle()
 def square(x, y, line: bool, color='#f4cfcf'):
+    wi.hideturtle()
     wi.up()
     wi.pencolor('black')
     wi.pensize(3)
@@ -21,17 +24,20 @@ def square(x, y, line: bool, color='#f4cfcf'):
     wi.end_fill()
     wi.up()
     if line:
+        wi.hideturtle()
         wi.goto(0, y)
         wi.down()
         wi.goto(0, -y)
         wi.up()
 def writef(text, x, y, l):
+    taxi.hideturtle()
     taxi.up()
     taxi.goto(x, y)
     taxi.write(text, align="left", font=('Novel Sans Cy XCnd Medium', l, 'normal'))
 titi.hideturtle()
 def Char(char,inventory,cmd=False):
     def widget(colour='white'):
+        wi.hideturtle()
         wi.up()
         wi.pencolor('#000000')
         wi.pensize(3)
@@ -64,6 +70,7 @@ def RemoveChar():
     taxi.clear()
 def Buy(balance, wn, cmd):
     def widget(colour='white'):
+        wi.hideturtle()
         wi.up()
         wi.pencolor('#000000')
         wi.pensize(3)
@@ -135,16 +142,12 @@ def Buy(balance, wn, cmd):
     elif cmd==2:
         widget()
         writef('*Недостаточно средств.*',-500,-300,20)
-    elif cmd==3:
-        tri.reset()
-        tri.hideturtle()
-        flower.reset()
-        flower.hideturtle()
-        fb.reset()
-        fb.hideturtle()
-        m.reset()
-        m.hideturtle()
-        mediator.reset()
-        mediator.hideturtle()
-# def clearBuy():
-#     titi.clearscreen()
+    # elif cmd==3:
+        # fb.hideturtle()
+        # wn.remove(m)
+        # wn.remove(mediator)
+        # wn.remove(flower)
+def clearBuy(wn):
+    wn.resetscreen()
+    for ti in wn.turtles():
+        ti.hideturtle()

@@ -1,7 +1,6 @@
-import turtle as titi
 
+from novel import *
 from novel.scenes import *
-
 
 titi.hideturtle()
 size=103
@@ -10,18 +9,20 @@ cl=Click()
 maint.hideturtle()
 wn = titi.Screen()
 wn.setup(1440, 1080)
+wn.title('Апокалипис сегодня')
 wn.bgpic('bg\\morning1.gif')
 name=titi.textinput('Имя', 'Введите имя для главной героини')
-
 last_key=None
 character.naming(name)
 
 def clickOnScreen(x,y):
+    titi.hideturtle()
+    maint.hideturtle()
     print(x,'\n',y)
     if cl.scenes==0:
-        scene6(cl, wn,x,y,character)
+        scene8(cl, wn,x,y,character)
     elif cl.scenes==1:
-        scene7(cl, wn,x,y,character)
+        scene2(cl, wn,x,y,character)
     elif cl.scenes==2:
         scene3(cl, wn, x, y, character)
     elif cl.scenes==3:

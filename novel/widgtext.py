@@ -4,6 +4,7 @@ wi = turtle.Turtle()
 wi.speed(0)
 wi.hideturtle()
 def widget(colour='white'):
+    wi.hideturtle()
     wi.up()
     wi.pencolor('#000000')
     wi.pensize(3)
@@ -20,9 +21,11 @@ def widget(colour='white'):
 taxi=turtle.Turtle()
 taxi.speed(0)
 taxi.hideturtle()
-
+tax=turtle.Turtle()
+tax.speed(0)
+tax.hideturtle()
 def write(text):
-
+    taxi.hideturtle()
     taxi.up()
     taxi.goto(-555, -250)
     if len(text)>70:
@@ -44,16 +47,19 @@ def write(text):
 def removeWidjet():
     wi.clear()
 def writeNewChapter(text):
-    taxi.up()
-    taxi.goto(-151,113)
-    taxi.write(text, font=('Novel Sans Cy XCnd Medium', 36, 'bold'), align='left')
+    tax.hideturtle()
+    tax.up()
+    tax.goto(-151,113)
+    tax.write(text, font=('Novel Sans Cy XCnd Medium', 36, 'bold'), align='left')
 def ShowChoice(first,second):
+    taxi.hideturtle()
     taxi.up()
     taxi.goto(-555,-250)
     taxi.write(first,font=('Novel Sans Cy XCnd Medium',24,'normal'),align='left')
     taxi.goto(-555,-340)
     taxi.write(second,font=('Novel Sans Cy XCnd Medium',24,'normal'),align='left')
 def ShowChar3(d,s,i):
+    taxi.hideturtle()
     taxi.up()
     taxi.goto(-555,-250)
     taxi.write(d,font=('Novel Sans Cy XCnd Medium',24,'normal'),align='left')
@@ -63,4 +69,5 @@ def ShowChar3(d,s,i):
     taxi.write(i, font=('Novel Sans Cy XCnd Medium', 24, 'normal'), align='left')
 def cleanText():
     taxi.clear()
+    tax.clear()
 
