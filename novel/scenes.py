@@ -1,7 +1,6 @@
 import novel.game
 from novel import *
 
-from nvltho.novel import cleanText, write, zombie, widget, Arashic
 
 cmd=Choise(0)
 def scene1(click,wd,x,y,gg:MainCharacter,cmd=cmd):
@@ -1141,7 +1140,7 @@ def scene4(click,wd,x,y,gg:MainCharacter,cmd=cmd):
         block1(click,wd,text)
     elif cmd.command==5:
         block2(click,wd)
-def scene5(click,wd,x,y,gg:MainCharacter,cmd=cmd):
+def scene5(click,wd,x,y,gg:MainCharacter,ad=0,cmd=cmd):
     def block1(click,wd):
         text1=['Леса густые. Леса снежные.','Нужно найти как можно больше ресурсов.','Я могу поохотиться с луком, но дело это непростое. Нужно иметь сильные руки.','Можно ещё пособирать ягоды, но для этого необходимо знать про ядовитые и непитательные виды.','Издалека виднеются заброшенные здания. Если буду достаточно изворотливой, то смогу найти полезные вещи на продажу.']
         clicked=click.click-1
@@ -1177,10 +1176,10 @@ def scene5(click,wd,x,y,gg:MainCharacter,cmd=cmd):
         elif whichChar3(x, y) == 3:
             click.click2 = 0
             cmd.command = 4
-    def hunt(click,neededskill,name,cmdm):
+    def hunt(click,neededskill,name,cmdm,ad):
         clicked=click.click2-1
         if clicked==0:
-            if neededskill<5:
+            if neededskill<5+ad:
                 cleanText()
                 write(f'Провал. Недостаточно {name}.')
             else:
@@ -1260,16 +1259,17 @@ def scene5(click,wd,x,y,gg:MainCharacter,cmd=cmd):
     elif cmd.command==1:
         block2(click)
     elif cmd.command==2:
-        hunt(click,gg.strength,'силы',cmd.cmd2)
+        hunt(click,gg.strength,'силы',cmd.cmd2,ad)
     elif cmd.command==3:
-        hunt(click,gg.intelegence,'интелекта',cmd.cmd2)
+        hunt(click,gg.intelegence,'интелекта',cmd.cmd2,ad)
     elif cmd.command==4:
-        hunt(click,gg.dexterity,'ловкости',cmd.cmd2)
+        hunt(click,gg.dexterity,'ловкости',cmd.cmd2,ad)
     elif cmd.command==5:
         block3(click)
     elif cmd.command==6:
         block4(click)
     elif cmd.command==7:
+        zombie.updateStat()
         twn=zombie.statToBeat
         block7(click,twn,gg.strength)
     elif cmd.command==8:
@@ -1638,8 +1638,10 @@ def scene7(click,wd,x,y,gg:MainCharacter,cmd=cmd):
             widget()
             write(text)
         elif clicked==1:
+            cleanText()
+            removeWidjet()
             wd.bgpic('nopic')
-            writeNewChapter('Спустя некотрое время...')
+            writeNewChapter('Спустя некоторое время...')
             cmd.command=0
             click.noClick()
             click.click2=0
@@ -1702,8 +1704,7 @@ def scene8(click,wd,x,y,gg:MainCharacter,cmd=cmd):
             cleanText()
             write(text1[clicked])
         elif clicked==4:
-            Arashic.createSpriteArashi(wd)
-            # Arashic.showArashi()
+            Arashic.showArashi()
             widget()
             write(text1[clicked])
         elif clicked==5:
@@ -1729,6 +1730,8 @@ def scene8(click,wd,x,y,gg:MainCharacter,cmd=cmd):
                 click.noClick()
                 cmd.command=102
             else:
+                cleanText()
+                write('Мне было всё равно на судьбу Араши, поэтому я убежала подальше от этих двоих.')
                 zombie.hidezzz()
                 click.click2 = 0
                 click.noClick()
@@ -1761,13 +1764,13 @@ def scene8(click,wd,x,y,gg:MainCharacter,cmd=cmd):
             write(text2[clicked])
         else:
             if len(gg.inventory)>0 and clicked>27:
-                if cliked==28:
+                if clicked==28:
                     cleanText()
                     write('Может подарить ему чего-нибудь?')
-            elif clicked==29:
-                cleanText()
-                choice = ['1.Подарить.', "2.Ничего не дарить."]
-                ShowChoice(choice[0], choice[1])
+                elif clicked>29:
+                    cleanText()
+                    choice = ['1.Подарить.', "2.Ничего не дарить."]
+                    ShowChoice(choice[0], choice[1])
                 if whichChoice(x, y) == 1:
                     click.button = None
                     cmd.command = 111
@@ -1776,7 +1779,354 @@ def scene8(click,wd,x,y,gg:MainCharacter,cmd=cmd):
                     Arashic.hideArashi()
                     click.noClick()
                     cmd.command = 200
+            else:
+                cleanText()
+                write('Надо будет его порадовать подарком...')
+                click.noClick()
+                click.click2=0
+                cmd.command=200
+    def block111():
+        clicked = click.click - 1
+        but = click.button
+        removeWidjet()
+        cleanText()
+        readChar()
+        char = readChar(True)
+        readInventory()
+        invent = readInventory(True)
+        if clicked == 0:
+            novel.game.Char(char, invent, True)
+        if but != None:
+            novel.game.RemoveChar()
+            if int(but) <= len(gg.inventory):
+                item = gg.inventory[int(but) - 1]
+                if item in Arashic.favorites:
+                    if clicked == 1:
+                        Arashic.showArashi()
+                        widget(Arashic.wcolour)
+                        write(f'Не перестаёшь радовать, {Arashic.mcName}! Я остался живым, так ещё с подарочками.')
+                    else:
+                        Arashic.hideArashi()
+                        Arashic.rep += 20
+                        gg.inventory.pop(int(but) - 1)
+                        readChar()
+                        click.noClick()
+                        cmd.command = 200
+                else:
+                    if clicked == 1:
+                        Arashic.showArashi()
+                        widget(Arashic.wcolour)
+                        write('Эм… Ты такая… щедрая…')
+                    else:
+                        Arashic.hideArashi()
+                        Arashic.rep -= 10
+                        readChar()
+                        gg.inventory.pop(int(but) - 1)
+                        click.noClick()
+                        cmd.command = 200
+            else:
+                if clicked == 1:
+                    widget()
+                    write('Я решила ничего не дарить.')
+                    click.noClick()
+                    cmd.command = 200
+    def block102():
+        clicked=click.click-1
+        ggt=[0,1,2,3,4,6,7,13,14,10,12,15,19]
+        ara=[5,9,16,18]
+        ggw=[8,11,17]
+        text1=['Не хотелось рисковать собой, поэтому я лишь кинула небольшой камешек, лежавший на земле у моих ног, в сторону от Араши.','Я дала лишь небольшой шанс сбежать.','Когда Араши поднялся, зомби уже начинал бежать в его сторону.',"«Я сделала всё, что могла»-подумала я и начала уходить в сторону лагеря, но…",
+               'Араши начал бежать на меня!!!',f'{Arashic.mcName}, подожди меня! Я уже бегу!!!','Вот же жук!!!','Так мы и убежали через глубь леса.','Ты больной?! Ладно бы он только за тобой бежал. Зачем ты его натравил и на меня?',
+               'Прости, не подумал…','Всё он подумал, просто мозгов нет.','Ладно, пошли к лагерю. Нам на север.','Так мы и пошли.','... Долгая дорога.','Как мы так далеко убежали?','Араши неловко стоял возле входа в лагерь. Я же собиралась на вылазку.','Ты всё равно идёшь на вылазку? ',
+               'А что тебя удивляет? Зомби во время апокалипсиса?','Да не то чтобы. Ладно, тебе лучше знать. ','Походу он сильно испугался.']
+        if clicked==7:
+            Arashic.hideArashi()
+            wd.bgpic('bg\\field.gif')
+        if clicked==8:
+            Arashic.showArashi()
+        if clicked==12:
+            Arashic.hideArashi()
+            wd.bgpic('nopic')
+            wd.bgcolor('black')
+        if clicked==14:
+            wd.bgpic('bg\\camp.gif')
+        if clicked in ggt:
+            cleanText()
+            widget()
+            write(text1[clicked])
+        elif clicked in ara:
+            Arashic.showArashi()
+            cleanText()
+            widget(Arashic.wcolour)
+            write(text1[clicked])
+        elif clicked in ggw:
+            cleanText()
+            widget(gg.colour)
+            write(text1[clicked])
+        else:
+            if len(gg.inventory)>0 and clicked>19:
+                if clicked==20:
+                    cleanText()
+                    write('Может подарить ему чего-нибудь?')
+                elif clicked==21:
+                    cleanText()
+                    choice = ['1.Подарить.', "2.Ничего не дарить."]
+                    ShowChoice(choice[0], choice[1])
+                if whichChoice(x, y) == 1:
+                    click.button = None
+                    cmd.command = 111
+                    click.click = 0
+                elif whichChoice(x, y) == 2:
+                    Arashic.hideArashi()
+                    click.noClick()
+                    cmd.command = 200
+            else:
+                cleanText()
+                write('Надо будет его порадовать подарком...')
+                click.noClick()
+                click.click2=0
+                cmd.command=200
+    def block200():
+        clicked=click.click2-1
+        Arashic.hideArashi()
+        if clicked==0:
+            cleanText()
+            write('Так я и ушла, оставив Араши.')
+        else:
+            cleanText()
+            widget()
+            write('Что подделать, нужно на вылазку.')
+            cmd.command=0
+            click.noClick()
+            click.click2=0
+            click.scenes+=1
     if cmd.command==0:
         block1()
-    if cmd.command==101:
+    elif cmd.command==101:
         block101()
+    elif cmd.command==111:
+        block111()
+    elif cmd.command==102:
+        block102()
+    elif cmd.command==200:
+        block200()
+def scene9(click,wd,x,y,gg:MainCharacter,cmd=cmd):
+    def block1():
+        clicked = click.click
+        text1 = ['...', 'Дни проходили незаметно, будто апокалипсис никогда не случался.',
+                 'За время пребывания в лагере я полюбила труд настолько, что вместо болтовни предпочитаю поработать побольше.',
+                 'Хм-м-м…']
+        if clicked<len(text1):
+            wd.bgpic('bg\\camp.gif')
+            widget()
+            write(text1[clicked])
+        if len(gg.inventory) > 0 and clicked >= len(text1) and (Arashic.rep>=60 or Cloec.rep>=20 or valerinC.rep>=70):
+            if clicked == 4:
+                cleanText()
+                write('Захотелось порадовать кое-кого важного…')
+            elif clicked >=5 and (Arashic.rep>=60 and Cloec.rep>=20):
+                cleanText()
+                choice = ['1.Пойти к Араши.', "2.Пойти к Хлое.", "Ничего никому не дарить"]
+                ShowChoice(choice[0], choice[1])
+                if whichChar3(x, y) == 1:
+                    cmd.command = 101
+                    click.noClick()
+                    click.click2 = 0
+                elif whichChar3(x, y) == 2:
+                    click.noClick()
+                    click.click2 = 0
+                    cmd.command = 102
+                elif whichChar3(x,y) == 3:
+                    lick.noClick()
+                    click.click2 = 0
+                    cmd.command = 200
+            elif clicked >=5 and valerinC.rep>=70:
+                cleanText()
+                choice = ['1.Пойти к Валерин с подарком.', "2.Ничего не дарить."]
+                ShowChoice(choice[0], choice[1])
+                if whichChoice(x, y) == 1:
+                    cmd.command = 103
+                    click.noClick()
+                    click.click2 = 0
+                elif whichChoice(x, y) == 2:
+                    click.noClick()
+                    click.click2 = 0
+                    cmd.command = 200
+            elif Cloec.rep>=20 and clicked >=5:
+                cleanText()
+                choice = ['1.Пойти к Хлое с подарком.', "2.Ничего не дарить."]
+                ShowChoice(choice[0], choice[1])
+                if whichChoice(x, y) == 1:
+                    cmd.command = 102
+                    click.noClick()
+                    click.click2 = 0
+                elif whichChoice(x, y) == 2:
+                    click.noClick()
+                    click.click2 = 0
+                    cmd.command = 200
+            elif clicked >=5 and Arashic.rep>=60:
+                cleanText()
+                choice = ['1.Пойти к Араши с подарком.', "2.Ничего не дарить."]
+                ShowChoice(choice[0], choice[1])
+                if whichChoice(x, y) == 1:
+                    cmd.command = 101
+                    click.noClick()
+                    click.click2 = 0
+                elif whichChoice(x, y) == 2:
+                    click.noClick()
+                    click.click2 = 0
+                    cmd.command = 200
+            else:
+                cleanText()
+                write('Думаю, лучше никого не встречать сегодня.')
+                cmd.command=200
+                click.noClick()
+    def block100(cc,text,bg):
+        clicked=click.click2-1
+        wd.bgpic(bg)
+        if clicked==0:
+            if cc==1:
+                Arashic.showArashi()
+            elif cc==2:
+                Cloec.showCloe()
+            elif cc==3:
+                valerinC.showValerin()
+        if clicked<len(text):
+            cleanText()
+            widget()
+            write(text[clicked])
+        else:
+            if cc==1:
+                Arashic.hideArashi()
+            elif cc==2:
+                Cloec.hideCloe()
+            elif cc==3:
+                valerinC.hideValerin()
+            cleanText()
+            choice = ['1.Подарить.', "2.Ничего не дарить."]
+            ShowChoice(choice[0], choice[1])
+            if whichChoice(x, y) == 1:
+                click.button = None
+                cmd.command = 111
+                click.click = 0
+            elif whichChoice(x, y) == 2:
+                click.noClick()
+                cmd.command = 200
+    def block111(cc):
+        clicked = click.click - 1
+        but = click.button
+        removeWidjet()
+        cleanText()
+        readChar()
+        char = readChar(True)
+        readInventory()
+        invent = readInventory(True)
+        if clicked == 0:
+            novel.game.Char(char, invent, True)
+        if but != None:
+            novel.game.RemoveChar()
+            if int(but) <= len(gg.inventory):
+                fav=0
+                clr=''
+                response=''
+                if cc == 1:
+                    response = f'Спасибо, {Arashic.mcName}! Ты знаешь как порадовать.'
+                    clr = Arashic.wcolour
+                    fav=Arashic.favorites
+                elif cc == 2:
+                    response = f'Спасибочки, {gg.name}! Мне очень приятно!!!'
+                    clr = Cloec.wcolour
+                    fav = Cloec.favorites
+                elif cc == 3:
+                    response = f'Спасибо, {gg.name}. Это мне пригодится.'
+                    clr = valerinC.wcolour
+                    fav = valerinC.favorites
+                item = gg.inventory[int(but) - 1]
+                if item in fav:
+                    if clicked == 1:
+                        if cc==1:
+                            Arashic.showArashi()
+                        elif cc==2:
+                            Cloec.showCloe()
+                        elif cc==3:
+                            valerinC.showValerin()
+                        widget(clr)
+                        write(response)
+                    else:
+                        if cc == 1:
+                            Arashic.hideArashi()
+                            Arashic.rep+=20
+                        elif cc == 2:
+                            Cloec.hideCloe()
+                            Cloec.rep+=20
+                        elif cc == 3:
+                            valerinC.hideValerin()
+                            valerinC.rep+=20
+                        gg.inventory.pop(int(but) - 1)
+                        readChar()
+                        click.noClick()
+                        cmd.command = 200
+                else:
+                    if clicked == 1:
+                        Arashic.showArashi()
+                        widget(Arashic.wcolour)
+                        write('Спасибо...')
+                    else:
+                        if cc == 1:
+                            Arashic.hideArashi()
+                            Arashic.rep -= 20
+                        elif cc == 2:
+                            Cloec.hideCloe()
+                            Cloec.rep -=10
+                        elif cc == 3:
+                            valerinC.hideValerin()
+                            valerinC.rep -= 20
+                        readChar()
+                        gg.inventory.pop(int(but) - 1)
+                        click.noClick()
+                        cmd.command = 200
+            else:
+                if clicked == 1:
+                    widget()
+                    write('Я решила ничего не дарить.')
+                    click.noClick()
+                    cmd.command = 200
+    def block200():
+        clicked=click.click-1
+        if clicked>-1:
+            widget()
+            write('Пора идти домой...')
+            cmd.command=0
+            click.noClick()
+            click.click2=0
+            click.scenes+=1
+    if cmd.command==0:
+        block1()
+    elif cmd.command==101:
+        pic='bg\\campfire.gif'
+        cm=1
+        text=['Я пошла к Араши.','Он стоял у костра и смотрел на искры пламени.','Вдруг он увидел меня.','Как только его глаза увидели мои, он начал безумно махать и глупо улыбаться.','Он что, парадирует Хлою?','Я подошла к нему. Начала болтать о всяком.','Настало время для подарков!']
+        block100(cm, text, pic)
+        gg.cc=1
+    elif cmd.command==102:
+        pic='bg\\greenhouse.gif'
+        cm=2
+        gg.cc = 2
+        text = ['Хлоя в теплице стояла у овощей.',
+                'Стоило ей встретить меня, как она начала улыбаться и подпрыгивать от счастья!',
+                'У нас завязался диалог. Говорили мы о всяком.',
+                'Она уже разболтала мне все новости недели. Как я это люблю в ней.',
+                'Захотелось обрадовать её подарком.']
+        block100(cm, text, pic)
+    elif cmd.command==103:
+        gg.cc = 3
+        cm=3
+        pic='bg\\shop.gif'
+        text=['Встретила я Валерин у магазинчика.','Она рассматривала фигурки солдатиков.','Наверняка это для Вернона.','Хруст снега под моими ногами дал Валерин знать о моём присутствии.','Она повернулась и по-необычному эмоционально поприветствовала меня.','У нас завязался диалог. Оказывается, у Вернона скоро день рождения.','Я выслушивала все мысли девушки, глупо улыбаясь.','Под конец её монолога я решила всё же подарить ей подарок.']
+        block100(cm, text, pic)
+    elif cmd.command==111:
+        block111(gg.cc)
+    elif cmd.command==200:
+        block200()
+def scene10(click,wd,x,y,gg:MainCharacter,cmd=cmd):
+    pass

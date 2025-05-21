@@ -3,12 +3,14 @@ import random
 class MainCharacter:
     name='Жаклин'
     colour='#f4cfcf'
-    inventory=[]
+    inventory=['Книга','Сладости']
     dexterity=random.randint(0,5)
     strength=random.randint(0,5)
     intelegence=random.randint(0,5)
     balance = 0
     new_balance=0
+    cc=1111111
+    ending=0
     def naming(self,new_name):
         if type(new_name)!=type(None):
             if new_name!='':
@@ -39,7 +41,7 @@ class Arashi:
     name='Араши'
     age=19
     sprite = 'sprites\араши.gif'
-    rep=1000
+    rep=0
     mcName=None
     wcolour='#c4b1d2'
     arashi_shape = tu.Turtle()
@@ -58,7 +60,7 @@ class Cloe:
     age=18
     sprite='sprites\хлоя.gif'
     favorites = ['Сладости', 'Красный мяч','Цветок']
-    rep=0
+    rep=100
     cloe_shape = tu.Turtle()
     cloe_shape.hideturtle()
     wcolour = '#c0e8d7'
@@ -170,5 +172,5 @@ class zzz:
     def hidezzz(self):
         self.zombie.hideturtle()
     def updateStat(self):
-        self.statToBeat=random.randint(1,7)
+        self.statToBeat=random.randint(1,10)
 zombie=zzz()

@@ -20,9 +20,9 @@ def clickOnScreen(x,y):
     maint.hideturtle()
     print(x,'\n',y)
     if cl.scenes==0:
-        scene8(cl, wn,x,y,character)
+        scene6(cl, wn,x,y,character)
     elif cl.scenes==1:
-        scene2(cl, wn,x,y,character)
+        scene9(cl, wn,x,y,character)
     elif cl.scenes==2:
         scene3(cl, wn, x, y, character)
     elif cl.scenes==3:
@@ -35,20 +35,24 @@ def clickOnScreen(x,y):
         scene7(cl, wn, x, y, character)
     elif cl.scenes==7:
         scene4(cl, wn, x, y, character)
+    elif cl.scenes==8:
+        scene8(cl,wn, x, y, character)
+    elif cl.scenes==9:
+        scene5(cl,wn, x, y, character,3)
+    elif cl.scenes==10:
+        scene6(cl, wn, x, y, character)
+    elif cl.scenes==11:
+        scene9(cl, wn, x, y, character)
     cl.clicking1()
     cl.clicking2()
     readChar()
     readInventory()
-    # scene7(cl, wn, x, y, character)
-    # print(readChar(True))
-    # print(character.new_balance)
-    # print(WhichItem(x,y))
-    print(cl.scenes)
     print(cl.click)
     print(cl.click2)
-    # print('v',valerinC.rep)
-    # print('a',Arashic.rep)
-    # print(readInventory(True))
+    print('v',valerinC.rep)
+    print('a',Arashic.rep)
+    print('c',Cloec.rep)
+    print(readInventory(True))
 def RecordKey(key):
     global last_key
     last_key=key

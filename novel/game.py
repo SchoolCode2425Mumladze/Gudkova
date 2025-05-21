@@ -151,3 +151,5 @@ def clearBuy(wn):
     wn.resetscreen()
     for ti in wn.turtles():
         ti.hideturtle()
+def recordInfo():
+    pass
