@@ -1,9 +1,11 @@
 import turtle as tu
 import random
+
+myColor='#d99a6c'
 class MainCharacter:
     name='Жаклин'
     colour='#f4cfcf'
-    inventory=['Книга','Сладости']
+    inventory=[]
     dexterity=random.randint(0,5)
     strength=random.randint(0,5)
     intelegence=random.randint(0,5)
@@ -60,7 +62,7 @@ class Cloe:
     age=18
     sprite='sprites\хлоя.gif'
     favorites = ['Сладости', 'Красный мяч','Цветок']
-    rep=100
+    rep=0
     cloe_shape = tu.Turtle()
     cloe_shape.hideturtle()
     wcolour = '#c0e8d7'
@@ -122,6 +124,7 @@ class Vernon:
     def showVernon(self):
         self.vernon_shape.showturtle()
 vernon=Vernon()
+#Чтение характеристик и вывод
 def readChar(cmd=False):
 
     if cmd:
@@ -139,7 +142,7 @@ def readChar(cmd=False):
             f.write(f'Интеллект:{mc.intelegence}\n')
             f.write(f'Баланс:{mc.balance}\n')
             f.close()
-
+#Чтение инвентаря и вывод
 def readInventory(cmd=False):
     ch=1
     if cmd:

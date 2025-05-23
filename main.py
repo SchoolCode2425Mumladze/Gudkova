@@ -1,7 +1,7 @@
 
 from novel import *
 from novel.scenes import *
-
+#Создание экрана, вывод запроса на имя
 titi.hideturtle()
 size=103
 maint=titi.Turtle()
@@ -14,15 +14,14 @@ wn.bgpic('bg\\morning1.gif')
 name=titi.textinput('Имя', 'Введите имя для главной героини')
 last_key=None
 character.naming(name)
-
+#Чтение кликов, переключение сцен
 def clickOnScreen(x,y):
     titi.hideturtle()
     maint.hideturtle()
-    print(x,'\n',y)
     if cl.scenes==0:
-        scene6(cl, wn,x,y,character)
+        scene1(cl, wn,x,y,character)
     elif cl.scenes==1:
-        scene9(cl, wn,x,y,character)
+        scene2(cl, wn,x,y,character)
     elif cl.scenes==2:
         scene3(cl, wn, x, y, character)
     elif cl.scenes==3:
@@ -43,20 +42,17 @@ def clickOnScreen(x,y):
         scene6(cl, wn, x, y, character)
     elif cl.scenes==11:
         scene9(cl, wn, x, y, character)
+    elif cl.scenes==12:
+        scene10(cl, wn, x, y, character)
     cl.clicking1()
     cl.clicking2()
     readChar()
     readInventory()
-    print(cl.click)
-    print(cl.click2)
-    print('v',valerinC.rep)
-    print('a',Arashic.rep)
-    print('c',Cloec.rep)
-    print(readInventory(True))
 def RecordKey(key):
     global last_key
     last_key=key
     cl.newButton(key)
+
 widget()
 titi.onscreenclick(clickOnScreen)
 titi.listen()

@@ -1,5 +1,6 @@
 import turtle as titi
 
+from nvltho.novel import MainCharacter
 
 titi.tracer(10)
 wi = titi.Turtle()
@@ -35,6 +36,7 @@ def writef(text, x, y, l):
     taxi.goto(x, y)
     taxi.write(text, align="left", font=('Novel Sans Cy XCnd Medium', l, 'normal'))
 titi.hideturtle()
+#Вывод инвентаря\характеристик
 def Char(char,inventory,cmd=False):
     def widget(colour='white'):
         wi.hideturtle()
@@ -68,6 +70,7 @@ def Char(char,inventory,cmd=False):
 def RemoveChar():
     wi.clear()
     taxi.clear()
+#Вывод магазина
 def Buy(balance, wn, cmd):
     def widget(colour='white'):
         wi.hideturtle()
@@ -151,5 +154,40 @@ def clearBuy(wn):
     wn.resetscreen()
     for ti in wn.turtles():
         ti.hideturtle()
-def recordInfo():
-    pass
+#Запись информации в файл
+def recordInfo(cm,gg:MainCharacter,ar,cl,va):
+    nameOfEnding='-'
+    if gg.ending==1:
+        nameOfEnding='Учёная'
+    elif gg.ending==2:
+        nameOfEnding="С пушистыми"
+    elif gg.ending == 3:
+        nameOfEnding = 'Боевая'
+    elif gg.ending == 4:
+        nameOfEnding = 'Пропавшая'
+    cc='w'
+    if cm==1:
+        cc='w'
+    elif cm==2:
+        cc='a'
+    if cm!=3:
+        with open('info\\mc all info.txt',cc) as f:
+            f.write(f'{gg.name}\n')
+            f.write('Инвентарь персонажа:\n')
+            for i in gg.inventory:
+                f.write(f'\t{i}\n')
+            f.write('Ивентарь персонажа:\n')
+            char=[gg.strength,gg.dexterity,gg.intelegence,gg.balance]
+            charn=['Сила',"Ловкость","Интелект","Баланс"]
+            for i in range(4):
+                f.write(f'\t{charn[i]}:{char[i]}\n')
+            f.write('Отношения с персонажами:\n')
+            rel=[ar.rep,cl.rep,va.rep]
+            reln=['Араши',"Хлоя","Валерин"]
+            for i in range(3):
+                f.write(f'\t{reln[i]}:{rel[i]}\n')
+            f.write(f'Концовка: {nameOfEnding}\n')
+            f.close()
+    else:
+        with open('info\\mc all info.txt', 'w') as f:
+            pass

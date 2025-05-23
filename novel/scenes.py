@@ -1,20 +1,19 @@
 import novel.game
 from novel import *
 
-
 cmd=Choise(0)
+# Начало
 def scene1(click,wd,x,y,gg:MainCharacter,cmd=cmd):
 
     def block1(click, wd):
         clicked = click.click
-
-        text1 = ["Снова звонит будильник. Значит, пора вставать и собираться в школу.",
+        text1 = ['*Добро пожаловать в «Апокалипсис сегодня»! Для игры нажимайте на экран, чтобы пролистывать текст.*',"*При выборах в диалоговом окне нажимайте на текст выбора. Про исключениях будет написано позднее.*","*Для подтверждения любого выбора нажмите на экран ещё раз.*","Снова звонит будильник. Значит, пора вставать и собираться в школу.",
                  'Скоро поднимется ко мне в комнату отец и начнет бурчать, что бы я поторопилась.',
                  'Я ненавижу утро, так еще и тест по английскому в школе. Может притворится больной и никуда не пойти?',
                  '... ', 'Уже 10 минут прошло, а отца все нет. Он заболел? Или сегодня выходной? Странно это...']
         wd.bgpic('bg\\morning1.gif')
         cleanText()
-        if clicked < 5:
+        if clicked < len(text1):
             cleanText()
             write(text1[clicked])
         else:
@@ -122,6 +121,7 @@ def scene1(click,wd,x,y,gg:MainCharacter,cmd=cmd):
         block4(click,wd)
     elif cmd.command==5:
         block5(click,wd)
+# Знакомство
 def scene2(click,wd,x,y,gg:MainCharacter,cmd=cmd):
     def block1(click,wd):
         nameofchap='Глава первая: \nНовое начало'
@@ -680,6 +680,7 @@ def scene2(click,wd,x,y,gg:MainCharacter,cmd=cmd):
     elif cmd.command==20:
         text=['Я тебя чем-то обидела?','Я просто хотела познакомится.','Не обидела, просто я вредная и очень люблю находится в тишине без посторонних.','Ладно, прощай.','Так я ушла от этой странной дамы. Если так подумать, все тут такие странные. Один с синдромом восьмиклассника, другая помешанная на котах, третья вредная.','Тяжело…']
         block17(click,text)
+#Вечеринка
 def scene3(click,wd,x,y,gg:MainCharacter,cmd=cmd):
     def block1(click, gg ):
         clicked = click.click - 1
@@ -1005,6 +1006,7 @@ def scene3(click,wd,x,y,gg:MainCharacter,cmd=cmd):
         block8(click,gg)
     elif cmd.command==8:
         block9(click,wd)
+#Подготовка к вылазке
 def scene4(click,wd,x,y,gg:MainCharacter,cmd=cmd):
     def workout(click,wd,cmdm):
         clicked=click.click2-1
@@ -1033,7 +1035,7 @@ def scene4(click,wd,x,y,gg:MainCharacter,cmd=cmd):
             write('Много новой информации... Мозги кипят!')
         elif clicked==1:
             cleanText()
-            write('Вивьен смотрела на меня из своего угла. Походу ей любопытно за мной наблюдать.')
+            write('Валерин смотрела на меня из своего угла. Походу ей любопытно за мной наблюдать.')
         elif clicked==2:
             cleanText()
             write('*+1 интеллект*')
@@ -1140,6 +1142,7 @@ def scene4(click,wd,x,y,gg:MainCharacter,cmd=cmd):
         block1(click,wd,text)
     elif cmd.command==5:
         block2(click,wd)
+#Вылазка
 def scene5(click,wd,x,y,gg:MainCharacter,ad=0,cmd=cmd):
     def block1(click,wd):
         text1=['Леса густые. Леса снежные.','Нужно найти как можно больше ресурсов.','Я могу поохотиться с луком, но дело это непростое. Нужно иметь сильные руки.','Можно ещё пособирать ягоды, но для этого необходимо знать про ядовитые и непитательные виды.','Издалека виднеются заброшенные здания. Если буду достаточно изворотливой, то смогу найти полезные вещи на продажу.']
@@ -1245,7 +1248,8 @@ def scene5(click,wd,x,y,gg:MainCharacter,ad=0,cmd=cmd):
                 zombie.hidezzz()
                 write('Навыков не хватило. Половина ресурсов потеряна.')
             else:
-                gg.balance += (gg.new_balance)//2
+                gg.new_balance //= 2
+                gg.balance += gg.new_balance
                 gg.new_balance = 0
                 cleanText()
                 write('Пора возвращаться домой...')
@@ -1278,6 +1282,7 @@ def scene5(click,wd,x,y,gg:MainCharacter,ad=0,cmd=cmd):
     elif cmd.command==9:
         twn=zombie.statToBeat
         block7(click,twn,gg.intelegence)
+#Магазин
 def scene6(click,wd,x,y,gg:MainCharacter,cmd=cmd):
     def block1():
         clicked=click.click-1
@@ -1339,11 +1344,12 @@ def scene6(click,wd,x,y,gg:MainCharacter,cmd=cmd):
         block1()
     elif cmd.command==1:
         block2()
+#Улучшение отношений
 def scene7(click,wd,x,y,gg:MainCharacter,cmd=cmd):
 
     def block1():
         clicked=click.click-2
-        text=['Как оказалось, в мире апокалипсиса всё не так трагично и энергично.','А главное, тут очень скучно. ','Чтобы скрасить себе дни, я хожу в библиотеку сразу после вылазок.','И снова я тут, Вивьен тоже.','Она вообще выходит на свежий воздух?','Ладно, не важно. Меня ждёт новый том для прочтения!','Художественная литература, как оказалось, не такая уж и скучная.','Я уже прочла кучу книг.','*Несколько часов спустя…*','Я и не заметила, как пролетело время!','Походу, даже Вивьен ушла. Может уже уйти спать?','Мм-м… Может ещё одну главу?','Стоило мне открыть книгу, как я услышала шорох.','Опять этот чёртов шорох!','Оказалось, что слева от меня сидел Вернон.','Я и не заметила его. Походу он сам тоже не заметил меня.','Случайно наши взгляды встретились.']
+        text=['Как оказалось, в мире апокалипсиса всё не так трагично и энергично.','А главное, тут очень скучно. ','Чтобы скрасить себе дни, я хожу в библиотеку сразу после вылазок.','И снова я тут, Валерин тоже.','Она вообще выходит на свежий воздух?','Ладно, не важно. Меня ждёт новый том для прочтения!','Художественная литература, как оказалось, не такая уж и скучная.','Я уже прочла кучу книг.','*Несколько часов спустя…*','Я и не заметила, как пролетело время!','Походу, даже Вивьен ушла. Может уже уйти спать?','Мм-м… Может ещё одну главу?','Стоило мне открыть книгу, как я услышала шорох.','Опять этот чёртов шорох!','Оказалось, что слева от меня сидел Вернон.','Я и не заметила его. Походу он сам тоже не заметил меня.','Случайно наши взгляды встретились.']
         if clicked == -1:
             wd.bgpic('nopic')
             wd.bgcolor('white')
@@ -1691,6 +1697,7 @@ def scene7(click,wd,x,y,gg:MainCharacter,cmd=cmd):
         block7()
     elif cmd.command==220:
         block220()
+#Араши(перед вылазкой)
 def scene8(click,wd,x,y,gg:MainCharacter,cmd=cmd):
     def block1():
         cleanText()
@@ -1895,7 +1902,7 @@ def scene8(click,wd,x,y,gg:MainCharacter,cmd=cmd):
         else:
             cleanText()
             widget()
-            write('Что подделать, нужно на вылазку.')
+            write('Что поделать, нужно на вылазку.')
             cmd.command=0
             click.noClick()
             click.click2=0
@@ -1910,6 +1917,7 @@ def scene8(click,wd,x,y,gg:MainCharacter,cmd=cmd):
         block102()
     elif cmd.command==200:
         block200()
+#Улучшение отношений перед концом
 def scene9(click,wd,x,y,gg:MainCharacter,cmd=cmd):
     def block1():
         clicked = click.click
@@ -1920,11 +1928,11 @@ def scene9(click,wd,x,y,gg:MainCharacter,cmd=cmd):
             wd.bgpic('bg\\camp.gif')
             widget()
             write(text1[clicked])
-        if len(gg.inventory) > 0 and clicked >= len(text1) and (Arashic.rep>=60 or Cloec.rep>=20 or valerinC.rep>=70):
+        if len(gg.inventory) > 0 and clicked >= len(text1) and (Arashic.rep>=60 or Cloec.rep>=30 or valerinC.rep>=80):
             if clicked == 4:
                 cleanText()
                 write('Захотелось порадовать кое-кого важного…')
-            elif clicked >=5 and (Arashic.rep>=60 and Cloec.rep>=20):
+            elif clicked >=5 and (Arashic.rep>=60 and Cloec.rep>=30):
                 cleanText()
                 choice = ['1.Пойти к Араши.', "2.Пойти к Хлое.", "Ничего никому не дарить"]
                 ShowChoice(choice[0], choice[1])
@@ -1940,7 +1948,7 @@ def scene9(click,wd,x,y,gg:MainCharacter,cmd=cmd):
                     lick.noClick()
                     click.click2 = 0
                     cmd.command = 200
-            elif clicked >=5 and valerinC.rep>=70:
+            elif clicked >=5 and valerinC.rep>=80:
                 cleanText()
                 choice = ['1.Пойти к Валерин с подарком.', "2.Ничего не дарить."]
                 ShowChoice(choice[0], choice[1])
@@ -1952,7 +1960,7 @@ def scene9(click,wd,x,y,gg:MainCharacter,cmd=cmd):
                     click.noClick()
                     click.click2 = 0
                     cmd.command = 200
-            elif Cloec.rep>=20 and clicked >=5:
+            elif Cloec.rep>=30 and clicked >=5:
                 cleanText()
                 choice = ['1.Пойти к Хлое с подарком.', "2.Ничего не дарить."]
                 ShowChoice(choice[0], choice[1])
@@ -1976,11 +1984,12 @@ def scene9(click,wd,x,y,gg:MainCharacter,cmd=cmd):
                     click.noClick()
                     click.click2 = 0
                     cmd.command = 200
-            else:
-                cleanText()
-                write('Думаю, лучше никого не встречать сегодня.')
-                cmd.command=200
-                click.noClick()
+        else:
+            cleanText()
+            write('Думаю, лучше никого не встречать сегодня.')
+            cmd.command=200
+            click.noClick()
+
     def block100(cc,text,bg):
         clicked=click.click2-1
         wd.bgpic(bg)
@@ -2128,5 +2137,230 @@ def scene9(click,wd,x,y,gg:MainCharacter,cmd=cmd):
         block111(gg.cc)
     elif cmd.command==200:
         block200()
+#Конец
 def scene10(click,wd,x,y,gg:MainCharacter,cmd=cmd):
-    pass
+    def block1():
+        daddytalks=[5,6,8,9,13]
+        ggt=[7,10,14]
+        clicked=click.click-1
+        text1=['Ночь.' ,'Я читала перед сном книгу. Уже начали слипаться веки. ','Протирая глаза, я вчитывалась в каждое слово, уже не понимая прочитанное. ','Резко-стук в дверь.','Это был отец.',
+               f'Добрый вечер,{gg.name}.','Ещё не спишь?','Не уверена.','Меня вызывают на долгую вылазку. Не вернусь до конца следующей недели.','Хотел попрощаться с тобой, но боюсь уже поздно. Я пойду.',
+               'Погоди!','Я обняла отца как в последний раз. Вроде он и часто уходит, но каждый раз я волнуюсь за него как в первый.','Мы немного поговорили. В разговоре отец упомянул о некоторой работе в складе... ','Пока меня не будет, можешь разобрать контейнеры на складе?','Без проблем!','Так и ушёл отец, а я легла спать. ',"Следующая ночь. Вспомнила я о контейнерах ближе к полуночи. ","Не хотелось откладывать это дело, да ещë и не спится. ","Поэтому я пошла в ночь на склад...","Несколько часов спустя... ","Оказывается, дело это непростое! ","Я думала, что если мне это поручает отец, то дело простое. Он не любит меня напрягать. ","Кошмар! Каждое раскрытие контейнера сопровождалось грохотом. ","Надеюсь я никого не разбудила... ","Утро. Я проснулась от бешенного стука в дверь.","Это был неизвестный мне мужчина. Выглядел он хмуро.","Он коротко доложил об инциденте. ","В эту ночь через склад прошёл зомби! Всех сзывали на разговор на улице.","Суровые взгляды на каждом лице.","Отца, конечно, не было.",'Валерин стояла с братом, нервно потирая костяшки пальцев.','Хлоя почёсывала гриву Луне. Араши же стоял вдали. ','Всё как всегда, но Валерин…','Резко на фоне начались рассуждения.',"В воздухе висел лишь один вопрос: «Кто впустил зомби?».",'Через склад можно выйти внаружу из лагеря через ворота.','Они не были выбиты зомби снаружи, а замок открывается изнутри.','Состояние замков проверяется, значит кто-то в ночь его открыл.','Зачем, а главное-кто?','Понятно было лишь одно: тот, кто это сделал в лагере не останется.','Валерин бесстыдно пялилась на меня, словно она хотела выжечь дыру во мне. ']
+        if clicked==4:
+            daddy.showDad()
+        if clicked==15:
+            daddy.hideDad()
+        if clicked in daddytalks:
+            widget(daddy.wcolour)
+        if clicked in ggt:
+            widget(gg.colour)
+        if clicked not in ggt and clicked not in daddytalks:
+            widget()
+        if clicked==0 or clicked==24:
+            wd.bgpic('bg\\room.gif')
+        if clicked==16 or clicked==19:
+            wd.bgpic('nopic')
+            wd.bgcolor('black')
+        if clicked==18 or clicked==20:
+            wd.bgpic('bg\\warehouse.gif')
+        if clicked==28:
+            wd.bgpic('bg\\camp.gif')
+        if clicked<len(text1):
+            cleanText()
+            write(text1[clicked])
+        else:
+            if valerinC.rep>=100:
+                cmd.command=1
+                gg.ending=1
+                click.noClick()
+                click.click2=0
+            else:
+                click.noClick()
+                click.click2 = 0
+                cmd.command=2
+    def block2():
+        text=['Походу она обрела смелось подойти ко мне. Чего она так боится?',f'{gg.name}, доброе утро.','Хотя если посмотреть на серое небо и на ситуацию с зомби, то не такое уж оно и доброе…','Утречка!','И не говори! Ужас какой. Кто бы подумал впустить зомби в лагерь!','Не знаю, но может кто-то недостаточно подумал об этом...?','Мм-м, может ты и права. В любом случае это беспредел! ','…','Знаешь, вчера я слышала грохот в районе склада. Поэтому я выглянула из окна, а там…','Забавно, но я совсем забыла про то, что вчера поработала в складе! Наверное, Валерин говорит про меня, но я не трогала дверь! Зачем мне дверь, если я разбирала контейнеры?!', 'Я?','Или кто-то похожий на тебя…','Это была я.','Только к воротам я не подходила. Ты думала, что это я?','Предполагала.','И всё равно никому не сказала? Почему?','Потому что это неправильно винить не выслушав. Да и люди здесь-звери. Они тебя на кусочки разорвут, если узнают, что их утопия чуть не закончилась из-за тебя.','Походу Валерин мне верит. Это хорошо…','Спустя час всех распустили. А через неделю виновник сознался. Походу на него надавила совесть…','В итоге он был изгнан из лагеря.','Подобная судьба могла постигнуть и меня, если бы Валерин рассказала про меня у склада.','Говоря о ней, мы стали ближе.','Моя любовь к книгам сблизила меня с таким же книжным червем.','Но нас сближали не только интересы, но ещё и мнения, желания и прочее.','Мы вместе начали учится, так мы спустя несколько месяцев начали учится у учёных нашего лагеря. ','Наше будущее неизвестно, но я почти уверена, что всё будет хорошо несмотря ни на что!','*Получена концовка «Учёная»*']
+        clicked=click.click2-1
+        vt=[1,2,5,8,11,14,16]
+        ggt=[3,4,6,10,12,13,15]
+        if clicked in vt:
+            valerinC.showValerin()
+            widget(valerinC.wcolour)
+        if clicked in ggt:
+            widget(gg.colour)
+        if clicked not in vt and clicked not in ggt:
+            widget()
+        if clicked==18:
+            valerinC.hideValerin()
+            wd.bgpic('nopic')
+            wd.bgcolor('black')
+        if clicked==21:
+            wd.bgpic('bg\\end1.gif')
+        if clicked<len(text):
+            cleanText()
+            write(text[clicked])
+        else:
+            cleanText()
+            choice = ['1.Сохранить ли статистику в файл/Удалить записанные данные.', "2.Ничего не делать."]
+            ShowChoice(choice[0], choice[1])
+            if whichChoice(x, y) == 1:
+                cmd.command = 400
+                click.noClick()
+                click.click2 = 0
+            elif whichChoice(x, y) == 2:
+                cleanText()
+                cmd.command=111
+    def block3():
+        clicked=click.click-1
+        text1=['Неожиданно, Валерин громко начала говорить. Её слышали все…',f'Прошлой ночью в районе склада я видела девушку. Её зовут {gg.name}.','Забавно, но я совсем забыла про то, что вчера поработала в складе! Валерин говорит про меня, но я не трогала дверь! Зачем мне дверь, если я разбирала контейнеры?!','Знакомые взгляды устремились посмотреть на меня. За ними и незнакомыe.','Я знаю этот взгляд. Знаю, что сейчас они не готовы ни к суду, ни к следствию.',
+               'Меня просто выгонят отсюда!!!','Я посмотрела на Хлою.']
+        if clicked==1:
+            valerinC.showValerin()
+            widget(valerinC.wcolour)
+        if clicked==2:
+            valerinC.hideValerin()
+            widget()
+        if clicked<len(text1):
+            cleanText()
+            write(text1[clicked])
+        else:
+            if Cloec.rep>=40:
+                gg.ending=2
+                cmd.command=4
+                click.noClick()
+                click.click2=0
+            else:
+                text2=['Она даже не смотрела на меня. И я её понимаю.',"Мы не так уж и близки, чтобы она брала ответственность за меня.",
+                       "…","Снова гул. Резко кто-то бросил в меня смятую упаковку от снека.",'Я уже виновна в их глазах… Надежды нет…']
+                if clicked-len(text1)<len(text2):
+                    cleanText()
+                    write(text2[clicked-len(text1)])
+                else:
+                    if Arashic.rep>=80:
+                        gg.ending=3
+                        cmd.command=5
+                        click.noClick()
+                        click.click2 = 0
+                    else:
+                        todel=len(text1)+len(text2)
+                        gg.ending=4
+                        text3=['Утро. Палящее солнце.','Слишком тепло для зимы.' ,'Меня выгнали из лагеря.','...','Судьба её неизвестна.','Говорят, что отец искал свою дочь во всех лагерях, которые есть.','Не нашёл.','И не найдёт…','*Получена концовка «Пропавшая»*']
+                        if clicked-todel==0:
+                            wd.bgpic('bg\\field.gif')
+                        if clicked-todel==4:
+                            widget(myColor)
+                        if clicked-todel<len(text3):
+                            cleanText()
+                            write(text3[clicked-todel])
+                        else:
+                            cleanText()
+                            choice = ['1.Сохранить ли статистику в файл/Удалить записанные данные.',
+                                      "2.Ничего не делать."]
+                            ShowChoice(choice[0], choice[1])
+                            if whichChoice(x, y) == 1:
+                                cmd.command = 400
+                                click.noClick()
+                                click.click2 = 0
+                            elif whichChoice(x, y) == 2:
+                                cleanText()
+                                cmd.command = 111
+    def block4():
+        clicked=click.click2-1
+        text1=['Походу она сильно волновалась за меня. Хлоя с жалостью смотрела на меня.','Но секундой позже она стала спокойнее. Хлоя сама тоже решила добавить слово в спор.','Я тоже видела кого-то возле склада. Мужчина лет тридцати.','Но я многое не увидела! В отличии от милой Валерин, я не так внимательна!','Толпа с новой волной начала шептать. Походу их мысли смягчились, когда слово добавила самая добрая и отзывчивая из всего лагеря.',
+               'Спустя час всех распустили. А через неделю виновник сознался. Походу на него надавила совесть…','В итоге он был изгнан из лагеря.','Подобная судьба могла постигнуть и меня, если бы Хлоя не разрядила обстановку.',
+               'Говоря о ней, мы стали ближе. Моим новым увлечением стала забота за животными и растениями.','Хлоя оказалась крайне умной. От неё я узнала много нового.','Днём я шла собирать ресурсы, вечером же шла к Хлое, чтобы помочь ей.','Спустя несколько месяцев я начала заниматься животноводством для проживания здесь, и мне это очень нравится!',
+               'Моё будущее неизвестно, но я почти уверена, что всё будет хорошо несмотря ни на что!','*Получена концовка «С пушистыми»*']
+        if clicked==2 or clicked==3:
+            Cloec.showCloe()
+            widget(Cloec.wcolour)
+        if clicked==4:
+            widget()
+            Cloec.hideCloe()
+        if clicked==8:
+            wd.bgpic('bg\\greenhouse.gif')
+        if clicked<len(text1):
+            cleanText()
+            write(text1[clicked])
+        else:
+            cleanText()
+            choice = ['1.Сохранить ли статистику в файл/Удалить записанные данные.', "2.Ничего не делать."]
+            ShowChoice(choice[0], choice[1])
+            if whichChoice(x, y) == 1:
+                cmd.command = 400
+                click.noClick()
+                click.click2 = 0
+            elif whichChoice(x, y) == 2:
+                cleanText()
+                cmd.command = 111
+    def block5():
+        ara=[0,7,8]
+        aft=[1,9]
+        clicked=click.click2-1
+        text1=['Моё любимое! Не разбираясь, люди обвиняют возможно невиновного.','Забавно, но единственный, кто попытался мне помочь - Араши.','После его провокационных слов толпа стала злее.','Кто-то кричал плохие слова про меня, кто-то просил выгнать из лагеря.','Моя судьба зависит от этой бестолковой толпы! Это бред!','Араши подошёл ко мне, спрятал меня от толпы за своей спиной, желая успокоить.',
+               'Прошептал…','Боюсь все против тебя, но поверь…','Я всё равно с тобой.','Утро. Палящее солнце.','Слишком тепло для зимы. Меня выгнали из лагеря.','Араши последовал за мной.','Так мы и отправились в мир апокалипсиса вновь','Спустя несколько месяцев блужданий, мы нашли новый лагерь.','Отсюда я смогла написать отцу. Он в ответном письме выразил переживания и заявил, что скоро придёт сюда.','Мир стал безопаснее, но за те месяцы блужданий что Араши, что я, мы оба стали сильнее.',
+               'Поэтому мы решили стать разведчиками.','Наше будущее неизвестно, но я почти уверена, что всё будет хорошо несмотря ни на что!','*Получена концовка «Боевая»*']
+        if clicked in ara:
+            Arashic.showArashi()
+            widget(Arashic.wcolour)
+        if clicked in aft:
+            widget()
+            Arashic.hideArashi()
+        if clicked==9:
+            wd.bgpic('bg\\field.gif')
+        if clicked==13:
+            wd.bgpic('bg\\newCamp.gif')
+        if clicked<len(text1):
+            cleanText()
+            write(text1[clicked])
+        else:
+            cleanText()
+            choice = ['1.Сохранить ли статистику в файл/Удалить записанные данные.', "2.Ничего не делать."]
+            ShowChoice(choice[0], choice[1])
+            if whichChoice(x, y) == 1:
+                cmd.command = 400
+                click.noClick()
+                click.click2 = 0
+            elif whichChoice(x, y) == 2:
+                cleanText()
+                cmd.command=111
+    def block400():
+        cleanText()
+        choice = ['1.Перезаписать данные.', "2.Дописать данные к существующим.", "3.Удалить все сохранёные данные."]
+        ShowChar3(choice[0], choice[1],choice[2])
+        if whichChar3(x, y) == 1:
+            click.noClick()
+            cleanText()
+            write('Данные сохранены! Их можно найти по пути info\mc all info')
+            recordInfo(1,gg,Arashic,Cloec,valerinC)
+            cmd.command=111
+        elif whichChar3(x, y) == 2:
+            click.noClick()
+            cleanText()
+            write('Данные сохранены! Их можно найти по пути info\mc all info')
+            recordInfo(2,gg,Arashic,Cloec,valerinC)
+            cmd.command = 111
+        elif whichChar3(x, y) == 3:
+            click.noClick()
+            cleanText()
+            write('Данные удалены!')
+            recordInfo(3,gg,Arashic,Cloec,valerinC)
+            cmd.command = 111
+
+    def block111():
+        cleanText()
+        write('Конец игры!!! Нажмите на экран для выхода.')
+        wd.exitonclick()
+    if cmd.command==0:
+        block1()
+    elif cmd.command==1:
+        block2()
+    elif cmd.command==400:
+        block400()
+    elif cmd.command==111:
+        block111()
+    elif cmd.command==2:
+        block3()
+    elif cmd.command==4:
+        block4()
+    elif cmd.command==5:
+        block5()

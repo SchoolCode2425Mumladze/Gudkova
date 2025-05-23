@@ -3,6 +3,7 @@ import turtle
 wi = turtle.Turtle()
 wi.speed(0)
 wi.hideturtle()
+#Диалоговое окно
 def widget(colour='white'):
     wi.hideturtle()
     wi.up()
@@ -24,6 +25,7 @@ taxi.hideturtle()
 tax=turtle.Turtle()
 tax.speed(0)
 tax.hideturtle()
+#Вывод текста
 def write(text):
     taxi.hideturtle()
     taxi.up()
@@ -46,11 +48,13 @@ def write(text):
     taxi.color('black')
 def removeWidjet():
     wi.clear()
+#Большой текст
 def writeNewChapter(text):
     tax.hideturtle()
     tax.up()
     tax.goto(-151,113)
     tax.write(text, font=('Novel Sans Cy XCnd Medium', 36, 'bold'), align='left')
+#Вывод текста для выборов
 def ShowChoice(first,second):
     taxi.hideturtle()
     taxi.up()

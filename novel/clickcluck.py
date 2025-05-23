@@ -1,3 +1,4 @@
+#Счетчик
 class Click:
     click=0
     click2=0
@@ -13,6 +14,7 @@ class Click:
         self.click=0
     def newButton(self,button):
         self.button=button
+#Определение того, какой выбор сделал игрок
 def whichChoice(x,y):
     if -555<=x<=532 and -240<=y<=-220:
         return 1
