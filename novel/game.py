@@ -1,4 +1,5 @@
 import turtle as titi
+from .characters import MainCharacter
 
 titi.tracer(10)
 wi = titi.Turtle()

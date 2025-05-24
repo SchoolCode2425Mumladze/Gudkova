@@ -24,7 +24,7 @@ class Valerin:
     favorites=['Книга', 'Сладости',"Закладка"]
     name='Валерин'
     age=21
-    sprite = 'sprites\валерин.gif'
+    sprite = 'sprites\\валерин.gif'
     rep=0
     wcolour='#97b1ce'
     valerin_shape = tu.Turtle()
@@ -42,9 +42,9 @@ class Arashi:
     favorites=['Сладости','Вышивка','Медиатор']
     name='Араши'
     age=19
-    sprite = 'sprites\араши.gif'
+    sprite = 'sprites\\араши.gif'
     rep=0
-    mcName=None
+    mcName=""
     wcolour='#c4b1d2'
     arashi_shape = tu.Turtle()
     arashi_shape.hideturtle()
@@ -60,7 +60,7 @@ Arashic=Arashi()
 class Cloe:
     name='Хлоя'
     age=18
-    sprite='sprites\хлоя.gif'
+    sprite='sprites\\хлоя.gif'
     favorites = ['Сладости', 'Красный мяч','Цветок']
     rep=0
     cloe_shape = tu.Turtle()
@@ -78,7 +78,7 @@ Cloec=Cloe()
 class Dad:
     dad_shape=tu.Turtle()
     dad_shape.hideturtle()
-    sprite = 'sprites\отец.gif'
+    sprite = 'sprites\\отец.gif'
     rep=100
     wcolour='#b0a7a7'
     def createSpriteDad(self,wn):
@@ -110,7 +110,7 @@ mc=character
 class Vernon:
     name='Вернон'
     age=15
-    sprite = 'sprites\вернон.gif'
+    sprite = 'sprites\\вернон.gif'
     rep=40
     wcolour='#ceb497'
     vernon_shape = tu.Turtle()

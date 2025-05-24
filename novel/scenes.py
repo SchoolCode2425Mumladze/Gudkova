@@ -1945,7 +1945,7 @@ def scene9(click,wd,x,y,gg:MainCharacter,cmd=cmd):
                     click.click2 = 0
                     cmd.command = 102
                 elif whichChar3(x,y) == 3:
-                    lick.noClick()
+                    click.noClick()
                     click.click2 = 0
                     cmd.command = 200
             elif clicked >=5 and valerinC.rep>=80:
@@ -2330,13 +2330,13 @@ def scene10(click,wd,x,y,gg:MainCharacter,cmd=cmd):
         if whichChar3(x, y) == 1:
             click.noClick()
             cleanText()
-            write('Данные сохранены! Их можно найти по пути info\mc all info')
+            write('Данные сохранены! Их можно найти по пути info\\mc all info')
             recordInfo(1,gg,Arashic,Cloec,valerinC)
             cmd.command=111
         elif whichChar3(x, y) == 2:
             click.noClick()
             cleanText()
-            write('Данные сохранены! Их можно найти по пути info\mc all info')
+            write('Данные сохранены! Их можно найти по пути info\\mc all info')
             recordInfo(2,gg,Arashic,Cloec,valerinC)
             cmd.command = 111
         elif whichChar3(x, y) == 3:
