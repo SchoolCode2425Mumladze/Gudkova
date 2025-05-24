@@ -1,7 +1,5 @@
 import turtle as titi
 
-from nvltho.novel import MainCharacter
-
 titi.tracer(10)
 wi = titi.Turtle()
 wi.speed(0)
